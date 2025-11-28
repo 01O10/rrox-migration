@@ -1,93 +1,45 @@
 ---
 title: "People"
-tagline: "Key people"
-description: Key people
+description: Meet the RROx team
 permalink: /people/
 type: page
 ---
----
 
-<p> <h2> Please note this webpage is no longer updated. Please go to the new
-website at <a href="https://rr.ox.ac.uk/">https://rr.ox.ac.uk/</a> for the most
-recent information.</h2> </p>
+In line with its cross-disciplinary remit, RROx is represented by members from all four academic divisions of the University of Oxford. Our Local Network Leads (LNLs) champion open and reproducible research within their departments and connect the wider community to training, events, and initiatives. We also collaborate with liaison points across professional services and colleges, and continue to celebrate past team members who helped establish RROx.
 
-In line with its cross-disciplinary remit, RROx is represented by members from the four academic Divisions of the
-University of Oxford. Group members span all career stages,
-from DPhil student to senior professor.
+## Local Network Leads
 
-Additionally, representation from the Bodleian Libraries provides
-liaison with relevant units in Gardens, Libraries & Museums. Research Services are also represented.
-
-[RROx Fellows](/all_groups#RROxFellows) are involved in RROx by leading on specific [initiatives]({{
-"/all_groups" | relative_url }}).
-
-
-<div class="initial-content person-card-columns" id="accordion">
-  {% assign people = site.team | sort_natural: 'lastname' %}
-  {% for person in people %}
-    {% unless person.retired %}
-        {% include person_card person=person %}
-    {% endunless %}
-  {% endfor %}
-
-  {% for person in people %}
-      {% if person.retired %}
-          {% include person_card person=person %}
-      {% endif %}
-    {% endfor %}
+{% assign leads = site.team | where: "current", true | sort_natural: "lastname" %}
+<div class="home-card-grid">
+{% for person in leads %}
+  {% assign photo = person.image_path %}
+  {% if photo == nil and person.image_src %}
+    {% assign photo = '/assets/images/team/' | append: person.image_src %}
+  {% endif %}
+  <article class="home-card">
+    <div class="home-card__image" style="background-image: url('{{ photo | relative_url }}');"></div>
+    <div class="home-card__body">
+      <h2>{{ person.firstname }} {{ person.lastname }}</h2>
+      <p class="event-summary__meta">{{ person.position }}{% if person.affiliations %} · {{ person.affiliations | join: ", " }}{% endif %}</p>
+      <p>{{ person.description }}</p>
+    </div>
+  </article>
+{% endfor %}
 </div>
 
-{% assign groupArray = "a, b, c" | split: ", " %}
-{% for person in site.team %}
-  {% if forloop.first == true %}
-    {% assign groupArray = person.groups %}
-  {% else %}
-    {% assign groupArray = groupArray | push: person.groups %}
-  {% endif %}
+## Past members
+
+We are grateful to everyone who has helped build the RROx community. A selection of past team members is listed below.
+
+<div class="event-summary-list">
+{% assign past_people = site.past_team | sort_natural: "lastname" %}
+{% for person in past_people %}
+  <article class="event-summary">
+    <h3>{{ person.firstname }} {{ person.lastname }}</h3>
+    {% if person.position %}
+      <p class="event-summary__meta">{{ person.position }}</p>
+    {% endif %}
+    <p>{{ person.content | strip_html | truncate: 200 }}</p>
+  </article>
 {% endfor %}
-{% assign groupArray = groupArray | uniq %}
-
-{% for g in groupArray %}
-  {% include group_list group=g %}
-{% endfor %}
-
-
-{% assign affArray = "a, b, c" | split: ", " %}
-{% for person in site.team %}
-  {% if forloop.first == true %}
-    {% assign affArray = person.affiliations %}
-  {% else %}
-    {% assign affArray = affArray | push: person.affiliations %}
-  {% endif %}
-{% endfor %}
-{% assign affArray = affArray | uniq %}
-
-{% for a in affArray %}
-  {% include affiliation_list affiliation=a %}
-{% endfor %}
-
-<script>
-  setTimeout(function () {
-    openCard();
-  }, 100);
-
-  document.body.addEventListener('click', function(e){closeCards(e)});
-</script>
-
-
-# Past members
-
-<div class="initial-content person-card-columns" id="accordion">
-  {% assign people = site.past_team | sort_natural: 'lastname' %}
-  {% for person in people %}
-    {% unless person.retired %}
-        {% include person_card person=person %}
-    {% endunless %}
-  {% endfor %}
-
-  {% for person in people %}
-      {% if person.retired %}
-          {% include person_card person=person %}
-      {% endif %}
-    {% endfor %}
 </div>

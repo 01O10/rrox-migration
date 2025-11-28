@@ -1,0 +1,38 @@
+# Start from the Rocker image with R and tidyverse
+FROM rocker/tidyverse:4.3.1
+
+# Install R dependencies and Python dependencies together
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    openssh-client \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && install2.r BH languageserver httpgd
+
+# Upgrade pip and install UV in a single step
+RUN pip3 install --upgrade pip uv
+
+# ---- Add Git Identity Script ---- #
+# Conditionally copy the Git and SSH configuration scripts if required
+ARG INCLUDE_GIT_SCRIPT=true
+COPY scripts/set-git-config.sh /root/scripts/set-git-config.sh
+RUN chmod +x /root/scripts/set-git-config.sh
+
+COPY scripts/set-ssh-config.sh /root/scripts/set-ssh-config.sh
+RUN chmod +x /root/scripts/set-ssh-config.sh
+
+COPY scripts/set-gh-config.sh /root/scripts/set-gh-config.sh
+RUN chmod +x /root/scripts/set-gh-config.sh
+
+COPY scripts/setup.sh /root/scripts/setup.sh
+RUN chmod +x /root/scripts/setup.sh
+
+COPY scripts/loader.sh /root/scripts/loader.sh
+RUN chmod +x /root/scripts/loader.sh
+
+# ---- Optional Working Directory ---- #
+WORKDIR /app
+
+# ---- Default Command ---- #
+CMD ["bash"]

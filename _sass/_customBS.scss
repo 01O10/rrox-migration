@@ -2,3 +2,92 @@ $primary: #fff;
 $secondary: #00193b; // Oxford blue
 $font-family-sans-serif: 'PT Sans', sans-serif !default;
 $font-family-base: $font-family-sans-serif !default;
+
+.home-hero {
+  margin-bottom: 2rem;
+}
+
+.home-hero .eyebrow {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #5a6e8c;
+  margin-bottom: 0.25rem;
+}
+
+.home-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.home-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.home-card a {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+}
+
+.home-card__image {
+  background-size: cover;
+  background-position: center;
+  padding-top: 60%;
+}
+
+.home-card__body {
+  padding: 1rem;
+  flex: 1;
+}
+
+.home-card__link {
+  font-weight: 600;
+  color: #0f62fe;
+}
+
+.home-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.event-summary-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.event-summary {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.event-summary__title {
+  margin-top: 0;
+}
+
+.event-summary__meta {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.event-meta {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #f9fafc;
+}
+
+.event-meta__cta .btn {
+  margin-top: 0.5rem;
+}

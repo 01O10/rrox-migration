@@ -1,59 +1,29 @@
 ---
-
 type: page
 permalink: /
-layout: splash
+layout: single
 classes: landing
-
+title: ""
 ---
 
-<style>
-body {
-  background-image: url({{ 'assets/images/radcliffe_camera.jpg' | relative_url }});
-  background-attachment: fixed;
-  background-size: cover;
-  background-position-y: center;
-  margin-bottom: 0 !important;
-}
-.initial-content {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.container {
-  color: #fff;
-  background-color: #00193b;
-  padding: 1em;
-  text-align: justify;
-}
-</style>
+<section class="home-hero">
+  <p class="eyebrow">Reproducible Research Oxford (RROx)</p>
+  <h1>Advancing open research across the University of Oxford</h1>
+  <p>Welcome to RROx — pronounced “rocks”! We are a University-wide initiative focused on spreading a culture of reproducibility across Oxford. RROx engages and supports the community by developing and encouraging the growth of reproducible research and enabling researchers and students to conduct work that is rigorous, open, and shareable.</p>
+  <p>We coordinate events and initiatives throughout the year, provide training opportunities, highlight resources, and collaborate with Local Network Leads embedded across departments. If you are based in Oxford and interested in open research and research reproducibility, do <a href="{{ '/get-involved/' | relative_url }}">get in touch</a>!</p>
+</section>
 
-<div class="container">
-
-<p> <h2> Please note this webpage is no longer updated. Please go to the new
-website at <a href="https://rr.ox.ac.uk/">https://rr.ox.ac.uk/</a> for the most
-recent information.</h2> </p>
-
-  <p>Welcome to Reproducible Research Oxford (RROx for short,
-  pronounced "rocks")!</p>
-
-  <p>RROx is the local network of
-  <a href="http://ukrn.org/">UKRN</a>, the UK Reproducibility Network,
-  at the <a href="https://www.ox.ac.uk/">University of Oxford</a>. We
-  are a University-wide initiative focused on advancing the open
-  research agenda at Oxford. The overarching goal is to promote a
-  coordinated approach to open scholarship and research
-  reproducibility that extends to all disciplines.</p>
-
-  <p>We work with key stakeholders across the University towards this
-  goal. We also coordinate several related <a href="{{ '/events' |
-  relative_url }}">events and initiatives</a> throughout the year, and
-  we maintain a list of relevant <a href="{{ '/resources' |
-  relative_url }}">resources</a> at Oxford and beyond. </p>
-
-  <p>If you are based in Oxford and are interested in open research
-  and research reproducibility, do <a href="{{ '/get-involved' |
-  relative_url }}">get in touch</a>!</p>
-
+<div class="home-card-grid">
+  {% for card in site.data.home_cards %}
+  <article class="home-card">
+    <a href="{{ card.url | relative_url }}">
+      <div class="home-card__image" style="background-image: url('{{ card.image | relative_url }}');"></div>
+      <div class="home-card__body">
+        <h2>{{ card.title }}</h2>
+        <p>{{ card.description }}</p>
+        <span class="home-card__link">Explore {{ card.title | downcase }} →</span>
+      </div>
+    </a>
+  </article>
+  {% endfor %}
 </div>

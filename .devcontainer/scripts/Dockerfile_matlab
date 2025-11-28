@@ -1,0 +1,98 @@
+# --- Stage 1: MATLAB Runtime Stage ---
+    FROM mathworks/matlab:r2023a AS matlab_runtime
+
+    # MATLAB Runtime installation directory (already exists in this image)
+    ENV MATLAB_RUNTIME=/opt/matlab/R2023a
+    RUN ls $MATLAB_RUNTIME
+    
+    # --- Stage 2: OpenJDK Stage ---
+    FROM openjdk:11-jdk-slim AS openjdk_env
+    
+    # Verify Java installation
+    RUN java -version
+    
+    # --- Stage 3: Final Image - Rocker with MATLAB and OpenJDK ---
+    FROM rocker/tidyverse:4.3.1
+    
+    # Set working directory
+    WORKDIR /app
+    
+    # --- Copy OpenJDK from openjdk_env stage ---
+    COPY --from=openjdk_env /usr/lib/jvm/java-11-openjdk-amd64 /usr/lib/jvm/java-11-openjdk-amd64
+    
+    # --- Copy MATLAB Runtime from matlab_runtime stage ---
+    COPY --from=matlab_runtime /opt/matlab/R2023a /opt/matlab/R2023a
+    
+    # --- Environment Variables for Java and MATLAB Runtime ---
+    ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    ENV PATH=$JAVA_HOME/bin:$PATH
+    ENV LD_LIBRARY_PATH=/opt/matlab/R2023a/v93/runtime/glnxa64:\
+    /opt/matlab/R2023a/v93/bin/glnxa64:\
+    /opt/matlab/R2023a/v93/sys/os/glnxa64:\
+    $LD_LIBRARY_PATH
+    
+    # Export LD_LIBRARY_PATH for runtime consistency
+    RUN echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /etc/profile
+    
+    # --- Install Additional R Packages ---
+    RUN install2.r --error BH languageserver httpgd
+    
+    # Verify MATLAB Runtime, Java, and R
+    RUN java -version && \
+        ls /opt/matlab/R2023a && \
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+    
+    # Default command
+    CMD ["bash"]
+    
+    
+    
+# # Use rocker/tidyverse as the base image
+# FROM rocker/tidyverse:4.3.1
+
+# # ---- Install OpenJDK ---- #
+# RUN apt-get update && apt-get install -y \
+#     openjdk-11-jdk \
+#     && apt-get clean \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # ---- Set up MATLAB Runtime ---- #
+# # Download and install MATLAB Runtime (Assuming MATLAB Runtime R2023a is needed)
+# # Replace <link_to_MATLAB_Runtime_installer> with the proper URL to the MATLAB installer
+# RUN apt-get update && apt-get install -y wget unzip && \
+#     wget -O matlab_runtime_installer.zip "https://ssd.mathworks.com/supportfiles/downloads/R2023a/Release/0/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2023a_glnxa64.zip" && \
+#     unzip matlab_runtime_installer.zip -d /tmp/matlab_runtime_installer && \
+#     /tmp/matlab_runtime_installer/install -mode silent -agreeToLicense yes -destinationFolder /opt/matlab/R2023a && \
+#     rm -rf matlab_runtime_installer.zip /tmp/matlab_runtime_installer && \
+#     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# # ---- Environment Variables ---- #
+# # Set environment variables for MATLAB and Java
+# ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+# ENV PATH=$JAVA_HOME/bin:$PATH
+# ENV LD_LIBRARY_PATH=/opt/matlab/R2023a/v93/runtime/glnxa64:/opt/matlab/R2023a/v93/bin/glnxa64:/opt/matlab/R2023a/v93/sys/os/glnxa64:$LD_LIBRARY_PATH
+
+# # ---- Install R Packages ---- #
+# RUN install2.r --error BH languageserver httpgd
+
+# # ---- Set Working Directory ---- #
+# WORKDIR /app
+
+# # ---- Default Command ---- #
+# CMD ["bash"]
+
+
+# # FROM rocker/tidyverse:4.3.1
+
+# # # Install R dependencies
+# # RUN install2.r BH languageserver httpgd
+
+# # FROM mathworks/matlab:r2023a
+
+# # FROM openjdk
+
+# # # ---- Optional Working Directory ---- #
+# # WORKDIR /app
+
+# # # ---- Default Command ---- #
+# # CMD ["bash"]

@@ -1,0 +1,27 @@
+{% assign start = include.event.start | default: include.event.starts %}
+{% assign end = include.event.end | default: include.event.ends %}
+<section class="event-meta">
+  <div class="event-meta__dates">
+    {% if start %}
+      <strong>Date:</strong>
+      <span>
+        {{ start | date: "%-d %B %Y, %H:%M" }}
+        {% if end and end != start %}
+          – {{ end | date: "%-d %B %Y, %H:%M" }}
+        {% endif %}
+      </span>
+    {% endif %}
+  </div>
+  {% if include.event.location %}
+    <div class="event-meta__location">
+      <strong>Location:</strong> <span>{{ include.event.location }}</span>
+    </div>
+  {% endif %}
+  {% if include.event.cta_url %}
+    <div class="event-meta__cta">
+      <a class="btn btn--primary" href="{{ include.event.cta_url }}" target="_blank" rel="noopener">
+        {{ include.event.cta_text | default: "Register" }}
+      </a>
+    </div>
+  {% endif %}
+</section>

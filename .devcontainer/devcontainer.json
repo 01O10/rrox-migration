@@ -1,0 +1,77 @@
+{
+  "name": "coding_env",
+  "image": "timabg/venpyr:codex_simplified",
+
+  "mounts": [
+    "source=${localEnv:HOME}/.env,target=/root/.env,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly"
+  ],
+
+  "containerEnv": {
+    "NO_PROXY": "localhost,127.0.0.1,::1,api.openai.com",
+    "no_proxy": "localhost,127.0.0.1,::1,api.openai.com"
+  },
+
+
+  "forwardPorts": [1455],
+
+
+  "remoteUser": "root",
+
+  //   "dns": ["1.1.1.1","8.8.8.8"],
+  // "runArgs": [
+  //   "--dns=1.1.1.1",
+  //   "--dns=8.8.8.8"
+  // ],
+
+    "runArgs": [
+    "--dns=1.1.1.1", "--dns=8.8.8.8",
+    "--sysctl", "net.ipv6.conf.all.disable_ipv6=1",
+    "--sysctl", "net.ipv6.conf.default.disable_ipv6=1"
+  ],
+
+  // "remoteUser": "root",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false,
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/mise:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-python-envs",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "github.vscode-pull-request-github",
+        "github.vscode-github-actions",
+        "tamasfe.even-better-toml",
+        "tomoki1207.pdf",
+        "quarto.quarto",
+        "shd101wyy.markdown-preview-enhanced",
+        "yzhang.markdown-all-in-one",
+        "zainchen.json",
+        "richie5um2.vscode-sort-json",
+        "dvirtz.parquet-viewer",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml"
+        // Consider removing "openai.chatgpt" since it targets ChatGPT web, not the API.
+      ]
+    }
+  },
+
+  "postStartCommand": "/bin/bash -c 'source /root/.env && /bin/bash /root/scripts/set-git-config.sh && /bin/bash /root/scripts/set-ssh-config.sh $SSH_KEY_NAME'"
+}

@@ -1,0 +1,20 @@
+<article class="event-summary">
+  <h3 class="event-summary__title">
+    <a href="{{ include.event.url | relative_url }}">{{ include.event.title }}</a>
+  </h3>
+  <p class="event-summary__meta">
+    {% if include.event.start %}
+      {{ include.event.start | date: "%-d %b %Y" }}
+      {% if include.event.end and include.event.end != include.event.start %}
+        – {{ include.event.end | date: "%-d %b %Y" }}
+      {% endif %}
+    {% endif %}
+    {% if include.event.location %}
+      · {{ include.event.location }}
+    {% endif %}
+  </p>
+  {% if include.event.summary %}
+    <p>{{ include.event.summary }}</p>
+  {% endif %}
+  <p><a class="event-summary__link" href="{{ include.event.url | relative_url }}">Learn more →</a></p>
+</article>

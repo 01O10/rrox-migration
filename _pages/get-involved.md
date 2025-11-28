@@ -1,35 +1,18 @@
 ---
-
-title: "Get involved!"
-tagline: Get involved!
-description: How to get involved
+title: "Get involved"
+description: How to get in touch with RROx
 permalink: /get-involved/
-type: pages
-
----
+type: page
 ---
 
-<p> <h2> Please note this webpage is no longer updated. Please go to the new
-website at <a href="https://rr.ox.ac.uk/">https://rr.ox.ac.uk/</a> for the most
-recent information.</h2> </p>
+![Researchers collaborating in a workshop]({{ '/assets/images/workshop-people.png' | relative_url }}){: .align-center}
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/workshop-people.png){: .align-center}
+Feel free to get in touch with us by subscribing to the [RROx mailing list](mailto:rroxford-subscribe@maillist.ox.ac.uk?subject=subscribe%20rroxford), or emailing the RROx Steering Group at [rrox-steering@maillist.ox.ac.uk](mailto:rrox-steering@maillist.ox.ac.uk) if you have any questions or ideas for relevant events and activities. If you coordinate a related initiative in Oxford, do let us know — we may be able to help.
 
+Stay up to date by:
 
-Feel free to get in touch with us via our [mailing
-list](mailto:sympa@maillist.ox.ac.uk?subject=subscribe%20rroxford),
-if you have any questions, or with ideas for relevant events or
-activities. And if you coordinate a related initiative in Oxford, do
-let us know, as we may be able to help!
+- Checking our [Events page]({{ '/events/' | relative_url }})  
+- Following us on [BlueSky](https://bsky.app/profile/rr-ox.bsky.social), [Instagram](https://www.instagram.com/rrox_community), and [X/Twitter](https://x.com/RR_Oxford)  
+- Subscribing to the [mailing list](mailto:rroxford-subscribe@maillist.ox.ac.uk?subject=subscribe%20rroxford)
 
-Take a look at the [people]({{ site.url }}{{ site.baseurl
-}}/people/){:target="_blank"} involved, to see if any of them are
-based in your unit --- you can also browse by [affiliation]({{
-"/all_affiliations" | relative_url }}){:target="_blank"} or by
-[group]({{ "/all_groups" | relative_url }}){:target="_blank"}.
-
-Finally, stay up to date by checking our [events]({{ site.url }}{{
-site.baseurl }}/events){:target="_blank"} page, following us on
-[Twitter](http://twitter.com/RR_Oxford){:target="_blank"}, and
-subscribing to our [mailing
-list](mailto:sympa@maillist.ox.ac.uk?subject=subscribe%20rroxford)!
+Take a look at the [People page]({{ '/people/' | relative_url }}) to see who is involved — including new Local Network Leads — and find someone in your division or department who can connect you with ongoing work.
